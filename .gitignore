@@ -110,7 +110,6 @@ venv.bak/
 
 .idea*
 alembic/
-migrations/
 
 *.ini
 redis.conf

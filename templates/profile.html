@@ -1,10 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-My personal profile
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% for item in post %}
+<div class="card mb-3">
+    <h5 class="card-header">
+        Название: {{ item.title }} || Author: {{ item.author }}</h5>
+
+    <div class="card-body">
+        <div class="media">
+            <img src="{{ item.image.url }}" alt="" width="350" class="mr-3">
+            <div class="media-body"></div>
+            <p class="card-text">{{ item.text|safe|linebreaks|truncatewords:"50" }}</p>
+            <a href= "{{ item.get_absolute_url }}" class="btn-index">Read more...</a>
+            {#   удаление поста     #}
+           <a href="{% url 'delete_post' item.pk %}"> <button class="btn-index2"> DELETE POST</button></a>
+        </div>
+
+
+        <div class="comment">
+            {#        Проверяет наличие коментариев к посту#}
+            {% if item.comments.all %}
+
+                    <h5> Comments: </h5>
+                  {% for comm in item.comments.all %}
+                       <div class="brd">
+                       <p> {{ comm.text }} </p>
+                       <p>Author:  {{ comm.author }} </p>
+                       </div>
+                  {% endfor %}
+            {% else %}
+                <h3> No comments </h3>
+            {% endif %}
+         </div>
+    </div>
+
+
+    <div class="card-footer text-muted">
+        Data {{ item.created | date:"d-m-Y H:i:s" }},
+        Time has passed: {{ item.created | timesince }}
+
+    </div>
+
+
+
+</div>
+
+
+{% endfor %}
+
+
+{% endblock %}
+
+{% block sidebar %}
+
+<div class="list-group">
+  <a href="{% url 'add_post' %}" class="list-group-item list-group-item-action">Add new Post</a>
+  <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
+
+</div>
+{% endblock %}

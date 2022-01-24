@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from post.views import index, post_detail, profile, register
+from django.conf import settings
+from post.views import CreatePost, delete_post
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,6 +25,8 @@ urlpatterns = [
     path('news_detail/<post_pk>/', post_detail, name='post_detail'),
     path('accounts/profile/', profile, name='profile'),
     path('accounts/register/', register, name='register'),
+    path('add_post/', CreatePost.as_view(), name='add_post'),
+    path('delete_post/<post_pk>/', delete_post, name='delete_post'),
 
 
 ]
@@ -31,3 +35,13 @@ urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
 
 ]
+
+if settings.DEBUG:
+    from django.conf.urls.static import static
+    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+    # Server static and media files from development server
+    urlpatterns += staticfiles_urlpatterns()
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

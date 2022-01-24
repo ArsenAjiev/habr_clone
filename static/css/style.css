@@ -1,0 +1,50 @@
+body {
+    background: #a1d8dc;
+}
+
+.brd {
+border-bottom-style: dotted;
+background: #ffffff; /* Цвет фона */
+padding: 10px; /* Поля вокруг текста */
+}
+
+.comment {
+margin: 40px;
+width: 80%;
+
+}
+
+.btn-index {
+  background-color: #1985c5;
+  border: none;
+  color: white;
+  padding: 10px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+
+.btn-register {
+  background-color: #1985c5;
+  border: none;
+  color: white;
+  padding: 10px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+
+}
+
+.btn-index2 {
+  background-color: #c4274a;
+  border: none;
+  color: white;
+  padding: 10px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}

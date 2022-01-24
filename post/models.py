@@ -8,11 +8,11 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 
 class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    text = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveSmallIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
-    created = models.DateTimeField(auto_now_add=True)
-    text = models.TextField()
 
     def __str__(self):
         return self.text
@@ -21,15 +21,18 @@ class Comment(models.Model):
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
-    created = models.DateTimeField(auto_now_add=True)
     text = models.TextField()
+    image = models.ImageField(null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
     comments = GenericRelation(Comment)
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        # Возвращает url-адрес для доступа к определенной новости.
+        # return url to Post
         return reverse('post_detail', kwargs={'post_pk': self.pk})
+
+
 
 

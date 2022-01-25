@@ -31,14 +31,25 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_interface',
+    'colorfield',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'post'
+
+
+    'django_migration_linter',
+
+    'post',
 ]
+
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -122,7 +133,9 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-STATICFILES_DIRS = []
+STATICFILES_DIRS = [
+    BASE_DIR / "static-user"
+]
 
 STATIC_ROOT = BASE_DIR / "static"
 STATIC_URL = "/static/"

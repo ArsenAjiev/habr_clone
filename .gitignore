@@ -118,3 +118,9 @@ users.acl
 *.pem
 *.crt
 *.key
+
+
+# Custom rules
+app/media
+app/static
+

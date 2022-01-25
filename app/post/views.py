@@ -1,4 +1,4 @@
-from post.models import Post
+from post.models import Post, Comment
 from post.forms import UserRegisterForm
 from django.contrib.auth import login
 from django.contrib import messages
@@ -47,6 +47,7 @@ class CreatePost(CreateView):
     template_name = 'add_post.html'
     success_url = reverse_lazy('home')
     raise_exception = True
+
 
    # добавляет в поле автор id текущего юзера автоматически
     def form_valid(self, form):

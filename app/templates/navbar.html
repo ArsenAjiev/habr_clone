@@ -1,3 +1,5 @@
+{% load static %}
+
 {#<nav class="navbar navbar-expand-lg navbar-light bg-light">#}
 {#    <a class="navbar-brand" href="{% url 'home' %}">Новостной сайт</a>#}
 {#    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"#}
@@ -32,7 +34,7 @@
 <nav class="navbar navbar-dark text-white-50 bg-dark">
   <div class="container ">
     <a class="navbar-brand" href="{% url 'home' %}">
-      <img src="/media/logo.jpg" alt="" width="30" height="24">  Habr Clone
+      <img src="{% static 'all/img/logo.jpg' %}" alt="" width="30" height="24">  Habr Clone
     </a>
 
   </div>

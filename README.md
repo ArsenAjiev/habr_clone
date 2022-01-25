@@ -47,8 +47,7 @@ Superuser
 
 Run db migrations
 
-    python manage.py makemigrations
-    python manage.py migrate
+    python manage.py makemigratio
 
     * check with linter (optional)
     python manage.py makemigrations --lint post

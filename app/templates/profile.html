@@ -17,32 +17,13 @@
            <a href="{% url 'delete_post' item.pk %}"> <button class="btn-index2"> DELETE POST</button></a>
         </div>
 
-
-        <div class="comment">
-            {#        Проверяет наличие коментариев к посту#}
-            {% if item.comments.all %}
-
-                    <h5> Comments: </h5>
-                  {% for comm in item.comments.all %}
-                       <div class="brd">
-                       <p> {{ comm.text }} </p>
-                       <p>Author:  {{ comm.author }} </p>
-                       </div>
-                  {% endfor %}
-            {% else %}
-                <h3> No comments </h3>
-            {% endif %}
-         </div>
     </div>
-
 
     <div class="card-footer text-muted">
         Data {{ item.created | date:"d-m-Y H:i:s" }},
         Time has passed: {{ item.created | timesince }}
 
     </div>
-
-
 
 </div>
 

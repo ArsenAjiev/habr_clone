@@ -1,3 +1,6 @@
+{% load static %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +9,7 @@
 </head>
 <body>
   <div class="card" >
-  <img src="/media/459-200x200.jpg" class="card-img-top" alt="...">
+  <img src="{% static 'all/img/logo.jpg' %}" class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title">Right Sidebar</h5>
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>

@@ -20,27 +20,37 @@
 
         <div class="comment">
             {#        Проверяет наличие коментариев к посту#}
+            <a href="#"> Add comment</a>
+            <br/>
+            <br/>
             {% if item.comments.all %}
 
                     <h5> Comments: </h5>
                   {% for comm in item.comments.all %}
-                       <div class="brd">
-                       <p> {{ comm.text }} </p>
-                       <p>Author:  {{ comm.author }} </p>
-                       </div>
+
+                      <strong>
+                      {{ comm.author }} -
+                      {{ comm.created }}
+                      </strong>
+                      <br/>
+                      {{ comm.text }}
+{#                       <div class="brd">#}
+{#                       <p> {{ comm.text }} </p>#}
+{#                       <p>Author:  {{ comm.author }} </p>#}
+{#                       </div>#}
                   {% endfor %}
             {% else %}
                 <h3> No comments </h3>
             {% endif %}
+           <br/>
+           <a href="#"> Add comment</a>
          </div>
-
     </div>
     <div class="card-footer text-muted">
         Data {{ item.created | date:"d-m-Y H:i:s" }},
         Time has passed: {{ item.created | timesince }}
     </div>
 </div>
-
 
 {% endfor %}
 

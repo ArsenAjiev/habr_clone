@@ -20,7 +20,7 @@ PostgreSQL
 ----
 Create database and user
 ```shell
-sudo su postgresx
+sudo su postgres
 psql
 ```
 ```postgresql
@@ -57,8 +57,11 @@ python manage.py createsuperuser --username admin
 Run db migrations
 ```shell
 python manage.py makemigrations
+```
+```shell
 python manage.py migrate
-
+```
+```shell
 # check with linter (optional)
 python manage.py makemigrations --lint post
 ```

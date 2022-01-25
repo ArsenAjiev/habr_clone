@@ -123,5 +123,4 @@ users.acl
 # Custom rules
 app/media
 app/static
-!app/static/all
 

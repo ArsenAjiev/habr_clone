@@ -4,8 +4,10 @@ from django.contrib.auth import login
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
-from post.forms import PostForm
+from post.forms import PostForm, AddCommentForm
 from django.urls import reverse_lazy
+from django.contrib.contenttypes.models import ContentType
+
 
 
 # main page
@@ -17,7 +19,25 @@ def index(request):
 # post detail
 def post_detail(request, post_pk):
     post = Post.objects.get(id=post_pk)
-    return render(request, 'post_detail.html', {'post': post})
+    # Принимает либо класс модели, либо экземпляр модели и возвращает экземпляр ContentType представляющий эту модель.
+    obj_type = ContentType.objects.get_for_model(Post)
+    # ID конкретного поста
+    object_id = post_pk
+    # текущий пользователь в системе
+    author = request.user
+    # вывел в консоль что бы посмотреть значения
+    print(obj_type, object_id, author)
+    if request.method == 'POST':
+        form = AddCommentForm(request.POST)
+        if form.is_valid():
+            Comment.objects.create(
+                content_type=obj_type, object_id=object_id, author=author, text=form.cleaned_data["text"]
+            )
+            form = AddCommentForm()
+            pass
+    else:
+        form = AddCommentForm()
+    return render(request, 'post_detail.html', {'post': post, 'form': form})
 
 
 # profile
@@ -59,4 +79,16 @@ class CreatePost(CreateView):
 def delete_post(request, post_pk):
     #active_user = News.objects.get(author_id=request.user.pk)
     Post.objects.get(author_id=request.user.pk, id=post_pk).delete()
+    return redirect('profile')
+
+
+# удаление коментария по id. Может удалить только тот кто написал коментарий.
+# в дальнейшем попробую вывести сообщение на странице.
+def delete_comment(request, comm_pk):
+    comment_id = comm_pk
+    author = request.user
+    try:
+        Comment.objects.get(id=comment_id, author=author).delete()
+    except:
+        print("У Вас нет прав на удаления комментария")
     return redirect('profile')

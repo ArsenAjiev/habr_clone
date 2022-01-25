@@ -5,52 +5,57 @@
 
 {% block content %}
 
-
 <div class="card mb-3">
     <h5 class="card-header">
         Название: {{ post.title }} || Author: {{ post.author }}</h5>
+            <div class="card-body">
+                <div class="media">
+                    <img src="{{ post.image.url }}" alt="" width="350" class="mr-3">
+                    <div class="media-body"></div>
+                    <p class="card-text">{{ post.text }}</p>
+                </div>
 
-    <div class="card-body">
-        <div class="media">
-            <img src="{{ post.image.url }}" alt="" width="350" class="mr-3">
-            <div class="media-body"></div>
-            <p class="card-text">{{ post.text }}</p>
-            <a href= "{{ post.get_absolute_url }}" class="btn-index">Read more...</a>
-        </div>
+                        <div class="comment">
+                            <a href="#"> Add comment</a>
+                            <br/>
+                            <br/>
 
-        <div class="comment">
-            {#        Проверяет наличие коментариев к посту#}
-            {% if post.comments.all %}
+                            {#        Проверяет наличие коментариев к посту#}
+                            {% if post.comments.all %}
 
-                    <h5> Comments: </h5>
-                  {% for comm in post.comments.all %}
+                                    <h5> Comments: </h5>
+                                  {% for comm in post.comments.all %}
+                                      {{ comm.author }} {{ comm.created | date:"d-m-Y H:i:s" }} -
+                                      <h6>{{ comm.text }}</h6>
+                                      <h6>id коментария - {{ comm.pk }}</h6>
+                                      <a href="{% url 'delete_comment' comm.pk %}"> <button class="btn-index2"> DELETE Comment</button></a>
+                                       <hr/>
 
-                      <strong>
-                      {{ comm.author }} -
-                      {{ comm.created }}
-                      </strong>
-                      <br/>
-                      {{ comm.text }}
-{#                       <div class="brd">#}
-{#                       <p> {{ comm.text }} </p>#}
-{#                       <p>Author:  {{ comm.author }} </p>#}
-{#                       </div>#}
-                  {% endfor %}
-            {% else %}
-                <h3> No comments</h3>
+                                  {% endfor %}
+                            {% else %}
+                                <h3> No comments</h3>
+                            {% endif %}
 
-
-            {% endif %}
-         </div>
-
-    </div>
-    <div class="card-footer text-muted">
-        Data {{ post.created | date:"d-m-Y H:i:s" }},
-        Time has passed: {{ post.created | timesince }}
-    </div>
-</div>
+                                        <div class="card-footer text-muted">
+                                                Data {{ post.created | date:"d-m-Y H:i:s" }},
+                                                Time has passed: {{ post.created | timesince }}
+                                                <hr/>
+                                        </div>
+                                                {#  коментарии могут оставлять только авторизированные пользователи #}
+                                                {% if user.is_authenticated %}
+                                                <form method="post">
+                                                    {% csrf_token %}
+                                                    {{ form.as_p }}
+                                                        <button type="submit" class=" btn btn-primary form-control"> Add comment</button>
+                                                </form>
+                                                {% endif %}
 
 
+                        </div>
+                 </div>
+            </div>
 
 
 {% endblock %}
+
+

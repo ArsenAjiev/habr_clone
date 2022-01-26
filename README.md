@@ -13,6 +13,8 @@ and install packages
       
 ```shell
 pip install -r requirements.txt
+
+pip freeze > requirements.txt
 ```
 
 

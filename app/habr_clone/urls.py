@@ -23,14 +23,15 @@ urlpatterns = [
 
     path('', index, name='home'),
     path('post_detail/<post_pk>/', post_detail, name='post_detail'),
-    path('accounts/profile/', profile, name='profile'),
-    path('accounts/register/', register, name='register'),
     path('add_post/', CreatePost.as_view(), name='add_post'),
     path('delete_post/<post_pk>/', delete_post, name='delete_post'),
     path('delete_comment/<comm_pk>/', delete_comment, name='delete_comment'),
     path('no_permission/', no_permission, name='no_permission'),
 
     path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/register/', register, name='register'),
+    path('accounts/profile/', profile, name='profile'),
+
     path('admin/', admin.site.urls),
 ]
 

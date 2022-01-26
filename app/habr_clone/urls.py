@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from post.views import index, post_detail, profile, register
-from post.views import CreatePost, delete_post, delete_comment
+from post.views import CreatePost, delete_post, delete_comment, no_permission
 
 urlpatterns = [
 
@@ -28,6 +28,7 @@ urlpatterns = [
     path('add_post/', CreatePost.as_view(), name='add_post'),
     path('delete_post/<post_pk>/', delete_post, name='delete_post'),
     path('delete_comment/<comm_pk>/', delete_comment, name='delete_comment'),
+    path('no_permission/', no_permission, name='no_permission'),
 
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),

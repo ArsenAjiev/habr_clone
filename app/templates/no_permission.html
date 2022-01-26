@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+
+
+{% block content %}
+<div class="card mb-3">
+    <h5 class="card-header" align="center"> У Вас нет прав для удаления коментария </h5>
+        <p align="center"> Правила использования сайта</p>
+        <div class="container-fluid">
+        <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+            when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            It has survived not only five centuries, but also the leap into electronic typesetting,
+            remaining essentially unchanged. It was popularised in the 1960s with the release of
+            Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
+            software like Aldus PageMaker including versions of Lorem Ipsum.
+        </p>
+
+       <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{% url 'home' %}">Вернуться на главную страницу</a>
+       </nav>
+    </div>
+</div>
+
+    {% endblock %}
+
+    {% block sidebar %}
+    {% endblock %}

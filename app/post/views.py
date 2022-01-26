@@ -26,7 +26,7 @@ def post_detail(request, post_pk):
     # текущий пользователь в системе
     author = request.user
     # вывел в консоль что бы посмотреть значения
-    print(obj_type, object_id, author)
+    #print(obj_type, object_id, author)
     if request.method == 'POST':
         form = AddCommentForm(request.POST)
         if form.is_valid():
@@ -83,12 +83,25 @@ def delete_post(request, post_pk):
 
 
 # удаление коментария по id. Может удалить только тот кто написал коментарий.
-# в дальнейшем попробую вывести сообщение на странице.
 def delete_comment(request, comm_pk):
-    comment_id = comm_pk
     author = request.user
+    comment_id = comm_pk
+
+    # получаем текст коментария по ID
+    comment_text = Comment.objects.get(id=comm_pk)
+    # получаем ID поста в таблице Comment
+    post_id = comment_text.object_id
+    # создаем объект для передачи в функцию redirect()
+    object = Post.objects.get(id=post_id)
     try:
         Comment.objects.get(id=comment_id, author=author).delete()
     except:
-        print("У Вас нет прав на удаления комментария")
-    return redirect('profile')
+        return redirect('no_permission')
+    # Передавая объект; в качестве URL-а для перенаправления
+    # будет использоваться результат вызова метода get_absolute_url()
+    return redirect(object)
+
+
+def no_permission(request):
+    return render(request, 'no_permission.html')
+

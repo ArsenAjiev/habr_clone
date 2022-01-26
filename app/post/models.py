@@ -7,6 +7,9 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 
 
 class Comment(models.Model):
+    class Meta:
+        ordering = ['-created']
+
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
     text = models.TextField()
     created = models.DateTimeField(auto_now_add=True)

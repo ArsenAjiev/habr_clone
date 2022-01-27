@@ -75,4 +75,16 @@ Collect static files in `app/static`
 python manage.py collectstatic -c --no-input
 ```
 
+Pytest
+----
+Run pytest
+```shell
+
+pytest -s -v tests/
+pytest --cov  --cov-report=html
+
+
+```
+
+
 

@@ -23,3 +23,30 @@ class TestUrls:
         path = reverse('delete_post', kwargs={'post_pk': 1})
         assert resolve(path).view_name == 'delete_post'
 
+    # 5 path('delete_comment/<comm_pk>/', delete_comment, name='delete_comment'),
+    def test_delete_comments_url(self):
+        path = reverse('delete_comment', kwargs={'comm_pk': 1})
+        assert resolve(path).view_name == 'delete_comment'
+
+    # 6 path('no_permission/', no_permission, name='no_permission'),
+    def test_no_permission_url(self):
+        path = reverse('no_permission')
+        assert resolve(path).view_name == 'no_permission'
+
+    # 7 path('accounts/register/', register, name='register'),
+    def test_register_url(self):
+        path = reverse('register')
+        assert resolve(path).view_name == 'register'
+
+    # 8 path('accounts/profile/', profile, name='profile'),
+    def test_profile_url(self):
+        path = reverse('profile')
+        assert resolve(path).view_name == 'profile'
+
+
+
+
+
+    # without test
+    # path('accounts/', include('django.contrib.auth.urls')),
+    # path('admin/', admin.site.urls),

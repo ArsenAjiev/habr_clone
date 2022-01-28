@@ -14,7 +14,7 @@ class UserRegisterForm(UserCreationForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'text', 'image']
+        fields = ['title', 'text', 'image', 'category']
         exclude = ('author',)
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
@@ -26,3 +26,5 @@ class PostForm(forms.ModelForm):
 
 class AddCommentForm(forms.Form):
     text = forms.CharField(label="Введите коментарий", widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+

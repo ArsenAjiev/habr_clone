@@ -28,6 +28,7 @@ class Post(models.Model):
     image = models.ImageField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     comments = GenericRelation(Comment)
+    category = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='category')
 
     def __str__(self):
         return self.title
@@ -37,5 +38,12 @@ class Post(models.Model):
         return reverse('post_detail', kwargs={'post_pk': self.pk})
 
 
+class Category(models.Model):
+    title = models.CharField(max_length=150, db_index=True)
 
+    def get_absolute_url(self):
+        return reverse('category', kwargs={"category_pk": self.pk})
+
+    def __str__(self):
+        return self.title
 

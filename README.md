@@ -80,6 +80,9 @@ Pytest
 Run pytest
 ```shell
 
+pip install pytest-django
+pip install pytest-cov
+
 pytest -s -v tests/
 pytest --cov  --cov-report=html
 

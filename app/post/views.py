@@ -6,8 +6,6 @@ from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from post.forms import PostForm, AddCommentForm
 from django.urls import reverse_lazy
-from django.contrib.contenttypes.models import ContentType
-
 
 
 # main page
@@ -18,20 +16,14 @@ def index(request):
 
 # post detail
 def post_detail(request, post_pk):
-    post = Post.objects.get(id=post_pk)
-    # Принимает либо класс модели, либо экземпляр модели и возвращает экземпляр ContentType представляющий эту модель.
-    obj_type = ContentType.objects.get_for_model(Post)
-    # ID конкретного поста
-    object_id = post_pk
-    # текущий пользователь в системе
+    post = Post.objects.get(pk=post_pk)
+    print(post.pk)
     author = request.user
-    # вывел в консоль что бы посмотреть значения
-    #print(obj_type, object_id, author)
     if request.method == 'POST':
         form = AddCommentForm(request.POST)
         if form.is_valid():
             Comment.objects.create(
-                content_type=obj_type, object_id=object_id, author=author, text=form.cleaned_data["text"]
+                author=author, post=post, text=form.cleaned_data["text"]
             )
             form = AddCommentForm()
             pass
@@ -62,14 +54,14 @@ def register(request):
     return render(request, 'registration/register_user.html', {"form": form})
 
 
+# create new post
 class CreatePost(CreateView):
     form_class = PostForm
     template_name = 'add_post.html'
     success_url = reverse_lazy('home')
     raise_exception = True
 
-
-   # добавляет в поле автор id текущего юзера автоматически
+    # добавляет в поле автор id текущего юзера автоматически
     def form_valid(self, form):
         form.instance.author_id = self.request.user.id
         print(form.instance.author_id)
@@ -77,7 +69,7 @@ class CreatePost(CreateView):
 
 
 def delete_post(request, post_pk):
-    #active_user = News.objects.get(author_id=request.user.pk)
+    # active_user = News.objects.get(author_id=request.user.pk)
     Post.objects.get(author_id=request.user.pk, id=post_pk).delete()
     return redirect('profile')
 
@@ -85,16 +77,13 @@ def delete_post(request, post_pk):
 # удаление коментария по id. Может удалить только тот кто написал коментарий.
 def delete_comment(request, comm_pk):
     author = request.user
-    comment_id = comm_pk
-
-    # получаем текст коментария по ID
-    comment_text = Comment.objects.get(id=comm_pk)
-    # получаем ID поста в таблице Comment
-    post_id = comment_text.object_id
-    # создаем объект для передачи в функцию redirect()
-    object = Post.objects.get(id=post_id)
+    # получаем коментарий
+    comment = Comment.objects.get(id=comm_pk)
+    # получаем пост по ID через поле в связанной таблице (comment.post_id)
+    object = Post.objects.get(id=comment.post_id)
+    print(object)
     try:
-        Comment.objects.get(id=comment_id, author=author).delete()
+        Comment.objects.get(id=comm_pk, author=author).delete()
     except:
         return redirect('no_permission')
     # Передавая объект; в качестве URL-а для перенаправления
@@ -104,4 +93,3 @@ def delete_comment(request, comm_pk):
 
 def no_permission(request):
     return render(request, 'no_permission.html')
-

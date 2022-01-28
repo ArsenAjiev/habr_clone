@@ -17,10 +17,10 @@
 
                         <div class="comment">
                             {#        Проверяет наличие коментариев к посту#}
-                            {% if post.comments.all %}
+                            {% if post.post.all %}
 
                                     <h5> Comments: </h5>
-                                  {% for comm in post.comments.all %}
+                                  {% for comm in post.post.all %}
                                       {{ comm.author }} || {{ comm.created | date:"d-m-Y H:i:s" }} || Time has passed: {{ comm.created | timesince }}
                                       <h6>{{ comm.text }}</h6>
                                       <h6>id коментария - {{ comm.pk }}</h6>

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 
 
@@ -13,9 +13,14 @@
     <div class="card-body">
         <div class="media">
 
-
-
+            {% if item.image %}
             <img src="{{ item.image.url }}" alt="" width="350" class="mr-3">
+            {% else %}
+            <img src="{% static 'all/img/no-image-available.jpg' %}" alt="" width="30" height="24">
+            {% endif %}
+
+
+
             <div class="media-body"></div>
             <p class="card-text">{{ item.text|safe|linebreaks|truncatewords:"50" }}</p>
             <a href= "{{ item.get_absolute_url }}" class="btn-index">Read more...</a>

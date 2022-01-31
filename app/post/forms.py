@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from post.models import Post
 
 
-#  форма регистрации нового пользователя
+#  new user registration form
 class UserRegisterForm(UserCreationForm):
     username = forms.CharField(label="Имя пользователя", widget=forms.TextInput(attrs={'class': 'form-control'}))
     password1 = forms.CharField(label="Пароль", widget=forms.PasswordInput(attrs={'class': 'form-control'}))
@@ -11,6 +11,7 @@ class UserRegisterForm(UserCreationForm):
                                 widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
 
+# add post form
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
@@ -24,7 +25,6 @@ class PostForm(forms.ModelForm):
         }
 
 
+# add comment form
 class AddCommentForm(forms.Form):
     text = forms.CharField(label="Введите коментарий", widget=forms.TextInput(attrs={'class': 'form-control'}))
-
-

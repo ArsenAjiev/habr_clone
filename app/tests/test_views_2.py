@@ -12,7 +12,7 @@ class TestView(TestCase):
         self.user = User.objects.create_user(
             username='jacob', email='jacob@mail.qw', password='top_secret')
         self.category_1 = Category.objects.create(title='category')
-        post_1 = Post.objects.create(
+        self.post_1 = Post.objects.create(
             author=self.user,
             title='description',
             text='some text',
@@ -20,8 +20,7 @@ class TestView(TestCase):
             category=self.category_1)
 
         self.index_url = reverse('home')
-        self.detail_url = reverse('post_detail', kwargs={'post_pk': post_1.id})
-        self.add_post_url = reverse('add_post')
+        self.detail_url = reverse('post_detail', kwargs={'post_pk': self.post_1.id})
 
     # index view
     def test_index(self):
@@ -34,6 +33,10 @@ class TestView(TestCase):
         response = self.client.get(self.detail_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'post_detail.html')
+
+
+
+
 
 
 

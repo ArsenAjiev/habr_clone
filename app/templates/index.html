@@ -4,7 +4,7 @@
 
 
 {% block content %}
-
+    {% if post %}
     {% for item in post %}
 <div class="card mb-3">
     <h5 class="card-header">
@@ -33,6 +33,15 @@
 </div>
 
 {% endfor %}
+
+    {% else %}
+
+    <div class="card mb-3 mt-5">
+    <h5 class="card-header" align="center"> No Posts  </h5>
+    </div>
+
+    {% endif %}
+
 
 {% endblock %}
 

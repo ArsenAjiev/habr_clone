@@ -90,4 +90,29 @@ pytest --cov  --cov-report=html
 ```
 
 
+django.test
+----
+Run tests
+```shell
 
+
+# Run all the tests
+$ python manage.py test 
+
+# Run all the tests found within the 'tests' package
+$ python manage.py test tests
+
+# Run all the tests in the tests.test_view_index module
+$ python manage.py test tests.test_view_index
+
+# Run just one test case
+$ python manage.py test tests.test_view_index.PostIndexView
+
+# Run just one test method
+$ python manage.py test tests.test_view_index.PostIndexView.test_no_post
+
+```
+     Example how to сreate multiple instances
+     number_of_students = 30
+     for student_id in range(number_of_students):
+        Student.objects.create(first_name=f"John{student_id}", last_name=f"Doe{student_id}")

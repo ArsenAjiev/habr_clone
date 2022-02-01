@@ -17,7 +17,6 @@ def index(request):
 # post detail
 def post_detail(request, post_pk):
     post = Post.objects.get(pk=post_pk)
-    print(post.pk)
     author = request.user
     if request.method == 'POST':
         form = AddCommentForm(request.POST)

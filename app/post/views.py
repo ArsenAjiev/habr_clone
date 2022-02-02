@@ -80,7 +80,6 @@ def delete_comment(request, comm_pk):
     comment = Comment.objects.get(id=comm_pk)
     # получаем пост по ID через поле в связанной таблице (comment.post_id)
     object = Post.objects.get(id=comment.post_id)
-    print(object)
     try:
         Comment.objects.get(id=comm_pk, author=author).delete()
     except:

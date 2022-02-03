@@ -1,11 +1,33 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
-
 {% block content %}
-    {% if post %}
-    {% for item in post %}
+
+    {% if date_1 %}
+        <div class="card bg-light text-dark text-center">
+            <div class="card-body">
+                <h1> Post </h1>
+                <h1> с {{ date_1|date:" d.m.Y" }} по {{ date_2|date:" d.m.Y" }}</h1>
+                <h1> Количество постов : {{ count_post }}</h1>
+            </div>
+        </div>
+    {% endif %}
+
+
+
+    <div class=" card bg-light text-dark text-center ">
+        <h2> Введите период поиска </h2>
+        <form method="POST" class="note-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="save btn btn-primary">Поиск</button>
+        </form>
+    </div>
+
+
+
+        {% if choice_post %}
+    {% for item in choice_post %}
 <div class="card mb-3">
     <h5 class="card-header">
         Название: {{ item.title }} || Author: {{ item.author }}</h5>
@@ -24,15 +46,8 @@
             <div class="media-body"></div>
             <p class="card-text">{{ item.text|safe|linebreaks|truncatewords:"50" }}</p>
             <a href= "{{ item.get_absolute_url }}" class="btn-index">Read more...</a>
-            <hr>
-            {% for tag in item.tags.all %}
-            <a class="btn btn-info" href="{% url 'post_by_tag' tag.slug %}" role="button">{{ tag.name }}</a>
-            {% endfor %}
         </div>
     </div>
-
-
-
     <div class="card-footer text-muted">
         Data {{ item.created | date:"d-m-Y H:i:s" }},
         Time has passed: {{ item.created | timesince }}
@@ -50,8 +65,12 @@
     {% endif %}
 
 
+
+
+
+
+
+
+
 {% endblock %}
-
-
-
 

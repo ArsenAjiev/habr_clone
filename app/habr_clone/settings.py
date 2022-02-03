@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
 
     'django_migration_linter',
+    'taggit',
 
     'post',
 ]
@@ -76,6 +77,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'post.middlewares.tags_context_processor'
             ],
         },
     },

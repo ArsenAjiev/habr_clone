@@ -20,6 +20,10 @@
             <a href= "{{ item.get_absolute_url }}" class="btn-index">Read more...</a>
             {#   удаление поста     #}
            <a href="{% url 'delete_post' item.pk %}"> <button class="btn-index2"> DELETE POST</button></a>
+           <hr>
+            {% for tag in item.tags.all %}
+            <a class="btn btn-info" href="{% url 'post_by_tag' tag.slug %}" role="button">{{ tag.name }}</a>
+            {% endfor %}
         </div>
 
     </div>

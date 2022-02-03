@@ -10,6 +10,7 @@ django-colorfield==0.6.3
 django-flat-responsive==2.0
 django-flat-theme==1.1.4
 django-migration-linter==3.0.1
+django-taggit==2.1.0
 Faker==11.3.0
 flake8==4.0.1
 flake8-isort==4.1.1

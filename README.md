@@ -116,3 +116,42 @@ $ python manage.py test tests.test_view_index.PostIndexView.test_no_post
      number_of_students = 30
      for student_id in range(number_of_students):
         Student.objects.create(first_name=f"John{student_id}", last_name=f"Doe{student_id}")
+
+
+
+
+Django-taggit 2.1.0
+----
+Run django-taggit 
+```shell
+
+pip install django-taggit
+
+Add "taggit" to your INSTALLED_APPS
+---------------------------------------
+from django.db import models
+
+from taggit.managers import TaggableManager
+
+
+class Food(models.Model):
+    # ... fields here
+
+    tags = TaggableManager()
+________________________________________
+
+python manage.py makemigrations
+python manage.py migrate
+________________________________________
+
+>>> apple = Food.objects.create(name="apple")
+>>> apple.tags.add("red", "green", "delicious")
+>>> apple.tags.all()
+[<Tag: red>, <Tag: green>, <Tag: delicious>]
+>>> apple.tags.remove("green")
+>>> apple.tags.all()
+[<Tag: red>, <Tag: delicious>]
+>>> Food.objects.filter(tags__name__in=["red"])
+[<Food: apple>, <Food: cherry>]    
+
+```

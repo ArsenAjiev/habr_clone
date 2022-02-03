@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from post.models import Post
+from datetime import date
 
 
 #  new user registration form
@@ -15,10 +16,11 @@ class UserRegisterForm(UserCreationForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'text', 'image', 'category']
+        fields = ['title', 'text', 'image', 'category', 'tags']
         exclude = ('author',)
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'tags': forms.TextInput(attrs={'class': 'form-control'}),
             'text': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
             # важно при загрузке изображения!!!
             'image': forms.FileInput(attrs={'class': 'input-image-control'})
@@ -28,3 +30,13 @@ class PostForm(forms.ModelForm):
 # add comment form
 class AddCommentForm(forms.Form):
     text = forms.CharField(label="Введите коментарий", widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+
+# choice post
+class ChoicePostForm(forms.Form):
+    date_1 = forms.DateTimeField(label="Первая дата",
+                                    initial=format(date),
+                                    widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+    date_2 = forms.DateTimeField(label="Вторая дата",
+                                 initial=format(date),
+                                 widget=forms.widgets.DateInput(attrs={'type': 'date'}))

@@ -16,5 +16,17 @@
     <a href="https://www.djangoproject.com/" class="btn btn-success" target="_blank">Go to Django</a>
   </div>
 </div>
+<br>
+  <div class="card" >
+  <div class="card-body">
+    <h5 class="card-title">Tags</h5>
+       {% for tag in tags %}
+              <a class="btn btn-info" href="{% url 'post_by_tag' tag.slug %}" role="button">{{ tag.name }}</a>
+      {% endfor %}
+
+  </div>
+</div>
+
+
 </body>
 </html>

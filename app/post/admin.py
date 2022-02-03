@@ -4,8 +4,8 @@ from post.models import Post, Comment, Category
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ("author", "title", "text", "created", "image", "category")
-    fields = ("author", "title", "text", "image", "category")
+    list_display = ("author", "title", "text", "created", "image", "category", "tags")
+    fields = ("author", "title", "text", "image", "category", "tags")
     readonly_fields = ("created",)
     search_fields = ("text",)
 

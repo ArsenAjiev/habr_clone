@@ -3,8 +3,8 @@ from post.forms import UserRegisterForm
 from django.contrib.auth import login
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView
-from post.forms import PostForm, AddCommentForm
+from django.views.generic import CreateView, ListView
+from post.forms import PostForm, AddCommentForm, ChoicePostForm
 from django.urls import reverse_lazy
 
 
@@ -12,6 +12,17 @@ from django.urls import reverse_lazy
 def index(request):
     post = Post.objects.all().order_by('-created')
     return render(request, "index.html", {"post": post})
+
+
+# tag index view
+class TagIndexView(ListView):
+    model = Post
+    template_name = 'index.html'
+    context_object_name = 'post'
+
+    def get_queryset(self):
+        return Post.objects.filter(tags__slug=self.kwargs.get('tag_slug')).order_by('-created')
+
 
 
 # post detail
@@ -91,3 +102,29 @@ def delete_comment(request, comm_pk):
 
 def no_permission(request):
     return render(request, 'no_permission.html')
+
+
+def choice_date(request):
+    choice_post = Post.objects.all()
+    date_1 = []
+    date_2 = []
+    count_post = Post.objects.count()
+    if request.method == 'POST':
+        form = ChoicePostForm(request.POST)
+        if form.is_valid():
+            date_1 = form.cleaned_data["date_1"]
+            date_2 = form.cleaned_data["date_2"]
+            choice_post = choice_post.filter(created__range=[date_1, date_2]).order_by('-created')
+            count_post = choice_post.count()
+            form = ChoicePostForm()
+            pass
+    else:
+        form = ChoicePostForm()
+    context = {
+        'choice_post': choice_post,
+        'form': form,
+        'date_1': date_1,
+        'date_2': date_2,
+        'count_post': count_post,
+    }
+    return render(request, 'choice_date.html', context)

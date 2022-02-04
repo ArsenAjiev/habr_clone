@@ -16,19 +16,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
-from post.views import index, post_detail, profile, register, TagIndexView
+from post.views import index, post_detail, profile, register, TagIndexView, choice_category
 from post.views import CreatePost, delete_post, delete_comment, no_permission, choice_date
+from post.views import choice_post_title
 
 urlpatterns = [
 
     path('', index, name='home'),
-    path('tags/<slug:tag_slug>/', TagIndexView.as_view(), name='post_by_tag'),
+    path('tags/<int:tag_pk>/', TagIndexView.as_view(), name='post_by_tag'),
     path('post_detail/<post_pk>/', post_detail, name='post_detail'),
     path('add_post/', CreatePost.as_view(), name='add_post'),
     path('delete_post/<post_pk>/', delete_post, name='delete_post'),
     path('delete_comment/<comm_pk>/', delete_comment, name='delete_comment'),
     path('no_permission/', no_permission, name='no_permission'),
     path('choice_date/', choice_date, name='choice_date'),
+    path('choice_category/<name>/', choice_category, name='choice_category'),
+    path('choice_post_title/', choice_post_title, name='choice_post_title'),
 
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/register/', register, name='register'),

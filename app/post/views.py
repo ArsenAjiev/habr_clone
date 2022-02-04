@@ -6,12 +6,17 @@ from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView
 from post.forms import PostForm, AddCommentForm, ChoicePostForm
 from django.urls import reverse_lazy
+from django.core.paginator import Paginator
 
 
 # main page
 def index(request):
     post = Post.objects.all().order_by('-created')
+    paginator = Paginator(post, 3)
+    page_number = request.GET.get("page")
+    post = paginator.get_page(page_number)
     return render(request, "index.html", {"post": post})
+
 
 
 # tag index view
@@ -21,7 +26,7 @@ class TagIndexView(ListView):
     context_object_name = 'post'
 
     def get_queryset(self):
-        return Post.objects.filter(tags__slug=self.kwargs.get('tag_slug')).order_by('-created')
+        return Post.objects.filter(tags__pk=self.kwargs.get('tag_pk')).order_by('-created')
 
 
 
@@ -45,6 +50,10 @@ def post_detail(request, post_pk):
 # profile
 def profile(request):
     post = Post.objects.all().filter(author=request.user.pk).order_by('-created')
+    post = Post.objects.all().order_by('-created')
+    paginator = Paginator(post, 3)
+    page_number = request.GET.get("page")
+    post = paginator.get_page(page_number)
     return render(request, "profile.html", {"post": post})
 
 
@@ -68,7 +77,7 @@ def register(request):
 class CreatePost(CreateView):
     form_class = PostForm
     template_name = 'add_post.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('profile')
     raise_exception = True
 
     # добавляет в поле автор id текущего юзера автоматически
@@ -128,3 +137,28 @@ def choice_date(request):
         'count_post': count_post,
     }
     return render(request, 'choice_date.html', context)
+
+
+def choice_category(request, name):
+    # индексация поля в связанной модели с дополнительным двойным подчеркиванием
+    posts = Post.objects.filter(category__title=name)
+    num_posts = posts.count()
+    paginator = Paginator(posts, 3)
+    page_number = request.GET.get("page")
+    posts = paginator.get_page(page_number)
+    return render(request, 'post_category.html', {'posts': posts, 'name': name, 'num_posts': num_posts})
+
+
+def choice_post_title(request):
+    query_dict = request.GET
+    query = query_dict.get("q")
+    post_search = None
+    if query is not None:
+        post_search = Post.objects.filter(title__contains=query) or Post.objects.filter(text__contains=query)
+    count_post_search = post_search.count()
+    context = {
+        'post_search': post_search,
+        'query': query,
+        'count_post_search': count_post_search
+    }
+    return render(request, 'choice_post_title.html', context=context)

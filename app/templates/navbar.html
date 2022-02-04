@@ -14,26 +14,29 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="#">All category</a>
+        <a class="navbar-brand" href="{% url 'home' %}">All category</a>
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Economy</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'choice_category' 'Economy' %}">Economy</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Technology</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'choice_category' 'Technology' %}">Technology</a>
                 </li>
                     <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Sport</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'choice_category' 'Sport' %}">Sport</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Music</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'choice_category' 'Music' %}">Music</a>
                 </li>
             </ul>
 
-            <a class="navbar-brand" aria-current="page" href="{% url 'choice_date' %}">Choice Post</a>
-
+            <a class="navbar-brand" aria-current="page" href="{% url 'choice_date' %}"> | Choice Post |</a>
+                     <form action="/choice_post_title/">
+                        <input type="text" name="q">
+                    <button class="btn btn-outline-secondary" type="submit"> Поиск</button>
+                </form>
         </div>
 
         <div class="d-flex justify-content-end">

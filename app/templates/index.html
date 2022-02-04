@@ -26,7 +26,7 @@
             <a href= "{{ item.get_absolute_url }}" class="btn-index">Read more...</a>
             <hr>
             {% for tag in item.tags.all %}
-            <a class="btn btn-info" href="{% url 'post_by_tag' tag.slug %}" role="button">{{ tag.name }}</a>
+            <a class="btn btn-info" href="{% url 'post_by_tag' tag.pk %}" role="button">{{ tag.name }}</a>
             {% endfor %}
         </div>
     </div>
@@ -48,6 +48,24 @@
     </div>
 
     {% endif %}
+
+ <div class="pagination">
+        <span class="step-links">
+          {% if post.has_previous %}
+            <a href="?page=1" class="btn btn-light">&laquo; first</a>
+            <a href="?page={{ post.previous_page_number }}" class="btn btn-light">previous</a>
+          {% endif %}
+            <span class="current">
+                Page {{ post.number }} of {{ post.paginator.num_pages }}.
+            </span>
+          {% if post.has_next %}
+            <a href="?page={{ post.next_page_number }} " class="btn btn-light">next</a>
+            <a href="?page={{ post.paginator.num_pages }}" class="btn btn-light">last &raquo;</a>
+          {% endif %}
+          </span>
+      </div>
+
+
 
 
 {% endblock %}

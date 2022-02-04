@@ -1,31 +1,19 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
+
 {% block content %}
 
-    {% if date_1 %}
-        <div class="card bg-light text-dark text-center">
-            <div class="card-body">
-                <h4> Результат поиска || с {{ date_1|date:" d.m.Y" }} по {{ date_2|date:" d.m.Y" }} || Всего: {{ count_post }} </h4>
-            </div>
-        </div>
-    {% endif %}
 
 
+    {% if posts %}
 
-    <div class=" card bg-light text-dark text-center ">
-        <h4> Введите даты поиска </h4>
-        <form method="POST" class="note-form">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="save btn btn-primary">Поиск</button>
-        </form>
-    </div>
+             <div class="card bg-light text-dark text-center">
+             <h4> Category: {{ name }}     ||     Count: {{ num_posts }}   </h4>
+             </div>
 
-
-
-        {% if choice_post %}
-    {% for item in choice_post %}
+    {% for item in posts %}
 <div class="card mb-3">
     <h5 class="card-header">
         Название: {{ item.title }} || Author: {{ item.author }}</h5>
@@ -50,6 +38,9 @@
             {% endfor %}
         </div>
     </div>
+
+
+
     <div class="card-footer text-muted">
         Data {{ item.created | date:"d-m-Y H:i:s" }},
         Time has passed: {{ item.created | timesince }}
@@ -66,5 +57,20 @@
 
     {% endif %}
 
-{% endblock %}
+     <div class="pagination">
+        <span class="step-links">
+          {% if posts.has_previous %}
+            <a href="?page=1" class="btn btn-light">&laquo; first</a>
+            <a href="?page={{ posts.previous_page_number }}" class="btn btn-light">previous</a>
+          {% endif %}
+            <span class="current">
+                Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+            </span>
+          {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }} " class="btn btn-light">next</a>
+            <a href="?page={{ posts.paginator.num_pages }}" class="btn btn-light">last &raquo;</a>
+          {% endif %}
+          </span>
+      </div>
 
+{% endblock %}

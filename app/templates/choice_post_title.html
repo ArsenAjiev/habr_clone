@@ -1,31 +1,19 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block content %}
 
-    {% if date_1 %}
+    {% if query %}
         <div class="card bg-light text-dark text-center">
             <div class="card-body">
-                <h4> Результат поиска || с {{ date_1|date:" d.m.Y" }} по {{ date_2|date:" d.m.Y" }} || Всего: {{ count_post }} </h4>
+                <h4> Результат по запросу: {{ query }} || количество: {{ count_post_search }}</h4>
             </div>
         </div>
     {% endif %}
 
-
-
-    <div class=" card bg-light text-dark text-center ">
-        <h4> Введите даты поиска </h4>
-        <form method="POST" class="note-form">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="save btn btn-primary">Поиск</button>
-        </form>
-    </div>
-
-
-
-        {% if choice_post %}
-    {% for item in choice_post %}
+        {% if post_search %}
+    {% for item in post_search %}
 <div class="card mb-3">
     <h5 class="card-header">
         Название: {{ item.title }} || Author: {{ item.author }}</h5>
@@ -66,5 +54,13 @@
 
     {% endif %}
 
+
+
+
+
+
+
 {% endblock %}
+
+
 

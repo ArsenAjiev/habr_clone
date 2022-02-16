@@ -155,3 +155,45 @@ ________________________________________
 [<Food: apple>, <Food: cherry>]    
 
 ```
+
+
+
+# How to run Docker
+
+### delete images, containers, volumes
+```shell
+# Show images, containers, volumes
+docker ps -a
+docker images
+docker volume ls
+```
+```shell
+# Delete images, containers, volumes
+docker system prune -a
+docker volume prune
+```
+
+### Create environment and install packages
+```shell
+# Create environment
+python3.8 -m venv --copies app/venv
+# Activate
+source app/venv/bin/activate
+# Make sure to use app/venv/bin/pip3.8 
+which pip3.8
+# Install packages
+pip3.8 install -r app/requirements.txt
+```
+
+
+### Run all at once
+
+```shell
+docker-compose up -d --build --force-recreate
+```
+
+```shell
+docker-compose exec app ./manage.py createsuperuser
+```
+
+### login as superuser and create Category model

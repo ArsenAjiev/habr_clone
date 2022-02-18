@@ -34,7 +34,7 @@ class Post(models.Model):
 
 
 class Category(models.Model):
-    title = models.CharField(max_length=150, db_index=True)
+    title = models.CharField(max_length=150, db_index=True, unique=True)
 
     def __str__(self):
         return self.title

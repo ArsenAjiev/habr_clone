@@ -196,4 +196,8 @@ docker-compose up -d --build --force-recreate
 docker-compose exec app ./manage.py createsuperuser
 ```
 
-### login as superuser and create Category model
+### Create Category model 'Economy', 'Technology', 'Sport', 'Music'  
+```shell
+docker-compose exec app ./manage.py create_category
+
+```

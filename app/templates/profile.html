@@ -22,7 +22,7 @@
            <a href="{% url 'delete_post' item.pk %}"> <button class="btn-index2"> DELETE POST</button></a>
            <hr>
             {% for tag in item.tags.all %}
-            <a class="btn btn-info" href="{% url 'post_by_tag' tag.id %}" role="button">{{ tag.name }}</a>
+            <a class="btn btn-info" href="{% url 'post_by_tag' tag.slug %}" role="button">{{ tag.name }}</a>
             {% endfor %}
         </div>
 
@@ -74,7 +74,7 @@
 
 
        {% for tag in most_comm_tags %}
-              <a class="btn btn-info" href="{% url 'post_by_tag' tag.pk %}" role="button">{{ tag.name }}</a>
+              <a class="btn btn-info" href="{% url 'post_by_tag' tag.slug %}" role="button">{{ tag.name }}</a>
       {% endfor %}
 
   </div>

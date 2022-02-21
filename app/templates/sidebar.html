@@ -16,7 +16,7 @@
 
 
        {% for tag in most_comm_tags %}
-              <a class="btn btn-info" href="{% url 'post_by_tag' tag.pk %}" role="button">{{ tag.name }}</a>
+              <a class="btn btn-info" href="{% url 'post_by_tag' tag.slug %}" role="button">{{ tag.name }}</a>
       {% endfor %}
 
   </div>

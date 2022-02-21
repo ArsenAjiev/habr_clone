@@ -186,11 +186,28 @@ pip3.8 install -r app/requirements.txt
 ```
 
 
+Collect static files in `app/static`
+```shell
+python manage.py collectstatic -c --no-input
+```
+
 ### Run all at once
 
 ```shell
 docker-compose up -d --build --force-recreate
 ```
+
+Run db migrations
+```shell
+docker-compose exec app ./manage.py makemigrations --lint post
+```
+```shell
+docker-compose exec app ./manage.py migrate
+```
+
+
+
+
 
 ```shell
 docker-compose exec app ./manage.py createsuperuser

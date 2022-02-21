@@ -23,7 +23,7 @@ from post.views import choice_post_title
 urlpatterns = [
 
     path('', index, name='home'),
-    path('tags/<int:tag_pk>/', TagIndexView.as_view(), name='post_by_tag'),
+    path('tags/<slug:tag_slug>/', TagIndexView.as_view(), name='post_by_tag'),
     path('post_detail/<post_pk>/', post_detail, name='post_detail'),
     path('add_post/', CreatePost.as_view(), name='add_post'),
     path('delete_post/<post_pk>/', delete_post, name='delete_post'),

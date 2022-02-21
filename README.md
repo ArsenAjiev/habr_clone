@@ -157,6 +157,42 @@ ________________________________________
 ```
 
 
+Django Taggit Rest Serializer
+----
+Installation
+To install this package you can use the following pip installation:
+
+    pip install dj-taggit-serializer
+
+Then, add taggit_serializer to your Settings in INSTALLED_APPS:
+
+    INSTALLED_APS = (
+        ...
+        'taggit_serializer',
+    )
+
+
+To accept tags through a REST API call we need to add the following to our Serializer:
+
+    from taggit_serializer.serializers import (TagListSerializerField,
+                                               TaggitSerializer)
+    
+    
+    class YourSerializer(TaggitSerializer, serializers.ModelSerializer):
+    
+        tags = TagListSerializerField()
+    
+        class Meta:
+            model = YourModel
+And you're done, so now you can add tags to your model
+
+### !!!IMPORTANT!!! 
+```text
+  tags in the field enter in the following form ["tag1","tag2"]  , otherwise there will be an error
+   -Invalid json list. A tag list submitted in string form must be valid json.-
+```
+
+
 
 # How to run Docker
 

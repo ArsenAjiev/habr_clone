@@ -26,7 +26,9 @@ class TagIndexView(ListView):
     context_object_name = 'post'
 
     def get_queryset(self):
-        return Post.objects.filter(tags__pk=self.kwargs.get('tag_pk')).order_by('-created')
+        return Post.objects.filter(tags__slug=self.kwargs.get('tag_slug')).order_by('-created')
+
+
 
 
 
@@ -50,7 +52,6 @@ def post_detail(request, post_pk):
 # profile
 def profile(request):
     post = Post.objects.all().filter(author=request.user.pk).order_by('-created')
-    post = Post.objects.all().order_by('-created')
     paginator = Paginator(post, 3)
     page_number = request.GET.get("page")
     post = paginator.get_page(page_number)
@@ -83,7 +84,6 @@ class CreatePost(CreateView):
     # добавляет в поле автор id текущего юзера автоматически
     def form_valid(self, form):
         form.instance.author_id = self.request.user.id
-        print(form.instance.author_id)
         return super(CreatePost, self).form_valid(form)
 
 

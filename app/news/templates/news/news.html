@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+   <div class="row row-cols-1 g-5">
+        {% for item in hn_list %}
+            <div class="col">
+                <div class="card rounded-3 card-shadow h-100 border">
+                    <div class="card-body">
+                        <h5 class="mb-5 card-title">{{ item.title }}</h5>
+                        <img src="{{ item.image }}" height="260">
+                        <hr>
+
+                        <h5 class="mb-5 card-title">{{ item.pub_date }}</h5>
+                        <a class="btn btn-primary" href=" {{ item.url }}">читать новость</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+
+{% endblock %}

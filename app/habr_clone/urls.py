@@ -39,6 +39,8 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path("api/", include("api.urls", namespace="api")),
+
+    path('news/', include('news.urls'))
 ]
 
 if settings.DEBUG:

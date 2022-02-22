@@ -1,13 +1,11 @@
 {% load static %}
 
-
   <div class="card" >
-  <img src="{% static 'all/img/logo.jpg' %}" class="card-img-top" alt="...">
+  <img src="{% static 'all/img/news.jpg' %}" class="card-img-top" alt="...">
   <div class="card-body">
-    <h5 class="card-title">News</h5>
-      <h2> Агрегатор новостей, в стадии разработки .... </h2>
-
+      <a class='btn btn-danger' href="{% url 'news' %}"> Читать новости </a>
   </div>
-</div>
+  </div>
+
 
 

@@ -18,7 +18,6 @@ def index(request):
     return render(request, "index.html", {"post": post})
 
 
-
 # tag index view
 class TagIndexView(ListView):
     model = Post
@@ -27,9 +26,6 @@ class TagIndexView(ListView):
 
     def get_queryset(self):
         return Post.objects.filter(tags__slug=self.kwargs.get('tag_slug')).order_by('-created')
-
-
-
 
 
 # post detail
